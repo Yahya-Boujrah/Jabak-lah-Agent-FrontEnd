@@ -1,0 +1,50 @@
+.main{
+    margin-top:3rem;
+}
+.agents{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top:4rem;
+    flex-wrap: wrap;
+
+}
+
+p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+}
+.card {
+    border: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.192);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+    margin-bottom: 30px;
+    height: 30vh;
+
+}
+.img{
+    width: 80px;
+}
+
+.item{
+    padding: 15px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+h1{
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+a {
+    color: #707070;
+    text-decoration: none;
+    line-height: 30px;
+    
+}

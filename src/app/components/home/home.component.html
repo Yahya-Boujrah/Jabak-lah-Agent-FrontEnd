@@ -1,0 +1,30 @@
+<div class="container main">
+    <h1 align="center">Our Team</h1>
+      <!-- <p align="center">Something about our team</p> -->
+    <div class="container agents">
+        <div class="col-md-6 col-xl-3" *ngFor="let agent of agentResponse?.data?.agents">
+            <div class="card m-b-30">
+                <div class="card-body row">
+                    <div class="col-5">
+                        <a href=""><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="img-fluid rounded-circle img"></a>
+                    </div>
+                    <div class="col-6 card-title align-self-center mb-0">
+                        <h5>{{agent.firstName}} {{agent.lastName}}</h5>
+                        <p class="m-0">{{agent.role}}</p>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item">
+                        Email : <br><a href="#">{{agent.email}}</a>
+                        <fa-icon  class="user-icon" [icon]="faEnvelope"></fa-icon>
+                    </li>
+                    <li class="list-group-item item" >
+                        Phone : <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+                        <fa-icon  class="user-icon" [icon]="faPhone"></fa-icon>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

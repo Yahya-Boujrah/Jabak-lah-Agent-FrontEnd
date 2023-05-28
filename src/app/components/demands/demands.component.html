@@ -1,0 +1,182 @@
+<div class="container demands-container" id="main-container">
+    <h1 align="center" class="mb-5">
+        Our Prospects
+    </h1>
+    <!-- <div class="mb-4 col-3">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+                            Total number of Prospects</div>
+                        <div class="h5 m-2 font-weight-bold text-gray-800">
+                            {{prospectResponse?.data?.prospects!.length}}</div>
+                    </div>
+                    <div class="col-auto">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table project-list-table table-nowrap align-middle table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="ps-4" style="width: 50px;">
+                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input"
+                                            id="contacusercheck" /><label class="form-check-label"
+                                            for="contacusercheck"></label></div>
+                                </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Cin</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Account Type</th>
+                                <th scope="col" style="width: 200px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let prospect of prospectResponse?.data?.prospects">
+                            <tr>
+                                <th scope="row" class="ps-4">
+                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input"
+                                            id="contacusercheck1" /><label class="form-check-label"
+                                            for="contacusercheck1"></label></div>
+                                </th>
+                                <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                        class="avatar-sm rounded-circle me-2" />{{prospect.lastName}}
+                                    {{prospect.firstName}}</td>
+                                <td>{{prospect.cin}}</td>
+                                <td>{{prospect.email}}</td>
+                                <td>{{prospect.phone}}</td>
+                                <td><span class="badge badge-soft-success mb-0">{{prospect.type}}</span></td>
+                                <td>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a (click)="onOpenModal(prospect, 'view')" title="View"
+                                                class="px-2 text-primary"><fa-icon [icon]="faEye"></fa-icon></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a (click)="onOpenModal(prospect, 'delete')" title="Delete"
+                                                class="px-2 text-danger"><fa-icon [icon]="faTrash"></fa-icon></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a (click)="onOpenModal(prospect, 'approve')" title="Accept"
+                                                class="px-2 text-success"><fa-icon [icon]="faSquareCheck"></fa-icon></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Approve Modal -->
+    <div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Approve Prospect</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to convert <strong>{{approveProspect?.lastName}}</strong> into a client
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" (click)="approve(approveProspect)"
+                        data-bs-dismiss="modal">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- view Modal -->
+    <div class="modal fade" id="viewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-light " style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prospect Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container ">
+                        <div class="row m-1 g-3">
+                            <div class="col">
+                               <span>First Name</span><br>
+                                    {{editProspect?.firstName}}
+                            </div>
+                            <div class="col">
+                                <span>Last Name</span><br>
+                                {{editProspect?.lastName}}
+                            </div>
+                        </div>
+                        <div class="row m-1 g-3">
+                            <div class="col">
+                               <span>Username</span><br>
+                               {{editProspect?.username}}
+                            </div>
+                            <div class="col">
+                               <span>CIN</span><br>
+                               {{editProspect?.cin}}
+                            </div>
+                        </div>
+                        <div class="row m-1 g-3">
+                            <div class="col">
+                                <span>Phone</span><br>
+                                {{editProspect?.phone}}
+                            </div>
+                            <div class="col">
+                               <span>Email</span><br>
+                               {{editProspect?.email}}
+                            </div>
+                        </div>
+                        <div class="row m-1 g-3">
+                            <div class="col">
+                                <span>Accont Type </span><br>
+                                    {{editProspect?.type}}
+                            </div>
+                        </div>
+                        <div class="row m-1 g-3">
+                            <div class="col-12">
+                                <button type="submit" class="col-4 btn btn-warning m-4"
+                                    data-bs-dismiss="modal">Confirm</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Prospect</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to delete Prospect <strong>{{deleteProspect?.lastName}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(deleteProspect)"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

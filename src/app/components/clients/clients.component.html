@@ -1,0 +1,345 @@
+<div class="container subcontainer" id="main-container">
+    <h1 align="center" class="text">
+        Our Clients
+    </h1>
+
+    <div class="row cards">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border1 shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text text-primary text-uppercase mb-1">
+                                Total clients number</div>
+                            <div class="h5 mb-0 text-gray-800">
+                                {{clientResponse?.data?.clients!.length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <!-- <i class="fas fa-calendar fa-2x text-gray-300"></i> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border2 shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text text-success text-uppercase mb-1">
+                                Clients with Plafond 5000DH</div>
+                            <div class="h5 mb-0 text-gray-800">
+                                {{clientResponse?.data?.clients!.length}}</div>
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border3 shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text text-info text-uppercase mb-1"> Clients with Plafond 20000DH
+                            </div>
+                            <div class="h5 mb-0 mr-3 text-gray-800">50</div>
+
+                        </div>
+                        <div class="col-auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border4 shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text text-warning text-uppercase mb-1">
+                                Clients with Plafond 50000DH</div>
+                            <div class="h5 mb-0 text-gray-800">18</div>
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-outline-success" (click)="onOpenModal(null, 'add')">
+       + Add Client
+    </button>
+    <div class="table-clients table-responsive">
+        <table class="table table-striped  table-hover project-list-table table-nowrap table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col"  class="ps-4">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col" class="item">Reset</th>
+                    <th scope="col" class="item">Update</th>
+                    <th scope="col" class="item">Delete</th>
+                    <th scope="col" class="item">Charge</th>
+
+                </tr>
+            </thead>
+            <tbody *ngFor="let client of clientResponse?.data?.clients ">
+                <tr>
+                    <th scope="row"  class="ps-4">{{client.id}}</th>
+                    <td>{{client.firstName}} {{client.lastName}}</td>
+                    <td>{{client.phone}}</td>
+                    <td><span class="badge badge-soft-primary mb-0">{{client.balance}} DH</span></td>
+                    <td>{{client.accountType}}</td>
+                    <td>{{ client.createdAt?.toLocaleString()!.split("T")[0] }}</td>
+                    <td class="item"><a (click)="onOpenModal(client,'reset')" class="px-2 text-warning"><fa-icon class="update"
+                        [icon]="faRotateLeft"></fa-icon></a>
+                    </td>
+                    <td class="item"><a (click)="onOpenModal(client,'edit')" class="px-2 text-success"><fa-icon class="update"
+                                [icon]="faPenToSquare"></fa-icon></a>
+                    </td>
+                    <td class="item"><a (click)="onOpenModal(client,'delete')" class="px-2 text-danger"><fa-icon class="delete"
+                                [icon]="faTrash"></fa-icon></a>
+                    </td>
+                    <td class="item"><a (click)="onOpenModal(client,'charge')" class="px-2 text-info"><fa-icon class="delete"
+                        [icon]="faSquarePlus"></fa-icon></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- add form modal -->
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a new Client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container mt-3">
+                        <form #addForm="ngForm">
+                            <div class="card-header">
+                                <h3 class="text-dark">Open a new payment account</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <select class="form-select" ngModel name="accountType" required>
+                                            <option value="Plafond_200DH">Hssab 1 - Plafond : 200 DH</option>
+                                            <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
+                                            <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
+                                            <option value="Plafond_50000DH">Hssab 3 - Plafond : 50000 DH</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Last Name" class="form-control" ngModel
+                                            name="lastName" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="First Name " class="form-control" ngModel
+                                            name="firstName" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Username" class="form-control" ngModel
+                                            name="username" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="CIN" class="form-control" ngModel name="cin"
+                                            required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <div class="col input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">+212</span>
+                                            <input type="text" placeholder="Phone Number" class="form-control" ngModel
+                                                name="phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="email" placeholder="Email" class="form-control" ngModel
+                                            name="email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="col-4 btn btn-warning m-4"
+                                            (click)="addClient(addForm)" [disabled]="addForm.invalid"
+                                            data-bs-dismiss="modal">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- update form modal -->
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-light " style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upate Client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container mt-3">
+                        <form #updateForm="ngForm">
+                            <div class="card-header">
+                                <h3 class="text-dark">Update payment account</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="">
+                                    <input type="hidden" class="form-control" name="id" ngModel="{{editClient?.id}}">
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <select class="form-select" ngModel="{{editClient?.accountType}}"
+                                            name="accountType" required>
+                                            <option value="Plafond_200DH" selected>Hssab 1 - Plafond : 200 DH</option>
+                                            <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
+                                            <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Last Name" class="form-control"
+                                            ngModel="{{editClient?.lastName}}" name="lastName" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="First Name " class="form-control"
+                                            ngModel="{{editClient?.firstName}}" name="firstName" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Username" class="form-control"
+                                            ngModel="{{editClient?.username}}" name="username" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="CIN" class="form-control"
+                                            ngModel="{{editClient?.cin}}" name="cin" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <div class="col input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">+212</span>
+                                            <input type="text" placeholder="Phone Number" class="form-control"
+                                                ngModel="{{editClient?.phone}}" name="phone" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="email" placeholder="Email" class="form-control"
+                                            ngModel="{{editClient?.email}}" name="email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="col-4 btn btn-warning m-4"
+                                            (click)="updateClient(updateForm.value)" [disabled]="updateForm.invalid"
+                                            data-bs-dismiss="modal">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Modal -->
+    <div class="modal fade" id="resetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to reset Password for <strong>{{resetClient?.username}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" (click)="reset(resetClient)"
+                        data-bs-dismiss="modal">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- charge Modal -->
+    <div class="modal fade" id="chargeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add balance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <label class="label">Specify how much balance to add</label>
+                        <input type="text" class="input" placeholder="Amount" [(ngModel)]="amount" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" (click)="charger(chargeClient)"
+                        data-bs-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Agent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to delete Client <strong>{{deleteClient?.lastName}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(deleteClient)"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

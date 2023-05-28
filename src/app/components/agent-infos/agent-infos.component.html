@@ -1,0 +1,57 @@
+<div class="container infos">
+    <h1>
+       Agent information
+    </h1>
+    <div class="infos-body row">
+        <div class=" col">
+            <div class="labelInfo">
+                Last Name
+            </div>
+            <div class="valeurInfo">
+                {{agent?.lastName}}</div>
+            <div class="labelInfo">
+                First Name
+            </div>
+            <div class="valeurInfo">
+                {{agent?.firstName}} </div>
+            <div class="labelInfo">
+                CIN
+            </div>
+            <div class="valeurInfo">
+                {{agent?.cin}} </div>
+            <div class="labelInfo">
+                Username
+            </div>
+            <div class="valeurInfo">
+                {{agent?.username!.split(":")[0]}} </div>
+        </div>    
+        <div class=" col">
+            <div class="labelInfo">
+                Email
+            </div>
+            <div class="valeurInfo">
+                {{agent?.email}}
+            </div>
+            <div class="labelInfo">
+                Phone number
+            </div>
+            <div class="valeurInfo">
+                {{agent?.phone}}
+            </div>
+            <div class="labelInfo">
+                patent Number
+            </div>
+            <div class="valeurInfo">
+                {{agent?.patentNumber}}
+            </div>
+            <div class="labelInfo">
+                Trade Register
+            </div>
+            <div class="valeurInfo">
+                {{agent?.tradeRegister}}
+            </div>
+
+        </div>
+    </div>
+
+</div>

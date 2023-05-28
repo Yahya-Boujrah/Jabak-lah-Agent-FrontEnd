@@ -1,0 +1,63 @@
+<div class="sticky-top">
+    <!-- <nav class="navbar top-navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="">
+                    <img src="" alt="logo">
+                </a>
+            </div>
+            <div class="user">
+                <fa-icon  class="user-icon" [icon]="faUser"></fa-icon>
+                <strong>username </strong>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav class="bottom-navbar">
+        <div class="img-container">
+            <img src="../../../assets/home.png" alt="">
+        </div>
+        <div class="container  nav-container">
+            <ul class="nav page-navigation">
+                <li class="nav-item">
+                    <a  (click)="home()" class="nav-link">
+                        <fa-icon  class="menu-icon" [icon]="faHouse"></fa-icon>
+                        <span class="menu-title">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  (click)="clients()"class="nav-link">
+                        <fa-icon  class="menu-icon" [icon]="faUserGroup"></fa-icon>
+                        <span class="menu-title" >Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="demands()" class="nav-link">
+                        <fa-icon  class="menu-icon" [icon]="faScroll"></fa-icon>
+                        <span class="menu-title">Demands </span>
+                        <span class="badge badge-danger badge-counter">{{number}}</span>
+                    </a>
+                </li>
+                <li class="nav-item"  >
+                    <a (click)="infos()" class="nav-link" >
+                        <fa-icon  class="menu-icon" [icon]="faNoteSticky"></fa-icon>
+                        <span class="menu-title">Infos</span>
+                    </a>
+                </li>
+                <li class="nav-item"  >
+                    <a (click)="changePwd()" class="nav-link" >
+                        <fa-icon  class="menu-icon" [icon]="faLock"></fa-icon>
+                        <span class="menu-title">Change password</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="logout()"  class="nav-link">
+                        <fa-icon  class="menu-icon" [icon]="faRightFromBracket"></fa-icon>
+                        <span class="menu-title">Deconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</div>
