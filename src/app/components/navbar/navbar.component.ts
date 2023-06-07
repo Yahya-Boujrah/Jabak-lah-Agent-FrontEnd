@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {faArrowRightFromBracket, faUser, faHouse, faUserGroup, faScroll,
-  faNoteSticky, faRightFromBracket, faCaretDown, faLock} from '@fortawesome/free-solid-svg-icons';
+  faNoteSticky, faRightFromBracket, faCaretDown, faArrowUpWideShort, faTableList} from '@fortawesome/free-solid-svg-icons';
 import { ProspectService } from 'src/app/services/Prospect.service';
 
 @Component({
@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
   faNoteSticky=faNoteSticky;
   faRightFromBracket=faRightFromBracket;
   faCaretDown=faCaretDown;
-  faLock = faLock;
+  faArrowUpWideShort = faArrowUpWideShort;
+  faTableList=faTableList;
 
   number : number = 0;
 
@@ -46,8 +47,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['demands'], {relativeTo: this.route});
   }
 
-  changePwd(){
-    this.router.navigate(['change-pwd'], {relativeTo: this.route});
+  products(){
+    this.router.navigate(['products'], {relativeTo: this.route});
+  }
+  orders(){
+    this.router.navigate(['orders'], {relativeTo: this.route});
   }
 
   logout(){

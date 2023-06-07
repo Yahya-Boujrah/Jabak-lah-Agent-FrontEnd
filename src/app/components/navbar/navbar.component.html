@@ -1,18 +1,4 @@
 <div class="sticky-top">
-    <!-- <nav class="navbar top-navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <a href="">
-                    <img src="" alt="logo">
-                </a>
-            </div>
-            <div class="user">
-                <fa-icon  class="user-icon" [icon]="faUser"></fa-icon>
-                <strong>username </strong>
-            </div>
-        </div>
-    </nav> -->
-
     <nav class="bottom-navbar">
         <div class="img-container">
             <img src="../../../assets/home.png" alt="">
@@ -34,20 +20,26 @@
                 <li class="nav-item">
                     <a (click)="demands()" class="nav-link">
                         <fa-icon  class="menu-icon" [icon]="faScroll"></fa-icon>
-                        <span class="menu-title">Demands </span>
+                        <span class="menu-title">Demands</span>
                         <span class="badge badge-danger badge-counter">{{number}}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="products()" class="nav-link">
+                        <fa-icon  class="menu-icon" [icon]="faTableList"></fa-icon>
+                        <span class="menu-title">Products</span>
+                    </a>
+                </li>
+                <li class="nav-item"  >
+                    <a (click)="orders()" class="nav-link" >
+                        <fa-icon  class="menu-icon" [icon]="faArrowUpWideShort"></fa-icon>
+                        <span class="menu-title">Orders</span>
                     </a>
                 </li>
                 <li class="nav-item"  >
                     <a (click)="infos()" class="nav-link" >
                         <fa-icon  class="menu-icon" [icon]="faNoteSticky"></fa-icon>
                         <span class="menu-title">Infos</span>
-                    </a>
-                </li>
-                <li class="nav-item"  >
-                    <a (click)="changePwd()" class="nav-link" >
-                        <fa-icon  class="menu-icon" [icon]="faLock"></fa-icon>
-                        <span class="menu-title">Change password</span>
                     </a>
                 </li>
                 <li class="nav-item">

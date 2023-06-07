@@ -80,6 +80,7 @@ export class ClientsComponent {
       }
     );
   }
+  
   charger(client: Client) {
   
     this.clientService.chargeSolde$(client.id as number, this.amount ).subscribe(response => {

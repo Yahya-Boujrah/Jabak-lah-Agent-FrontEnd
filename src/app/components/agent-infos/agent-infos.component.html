@@ -3,6 +3,13 @@
        Agent information
     </h1>
     <div class="infos-body row">
+        <div class="change-pwd">
+            <a (click)="changePwd()" class="nav-link" >
+                <fa-icon  class="menu-icon" [icon]="faLock"></fa-icon>
+                <span class="menu-title">Change password</span>
+            </a>
+    
+        </div>
         <div class=" col">
             <div class="labelInfo">
                 Last Name
@@ -53,5 +60,4 @@
 
         </div>
     </div>
-
 </div>

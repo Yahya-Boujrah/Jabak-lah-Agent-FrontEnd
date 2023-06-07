@@ -1,0 +1,298 @@
+<div class="container mt-5" id="main-container">
+    <div class="container-fluid p-0">
+        <h1 class="h3 mb-3">Products</h1>
+        <div class="row">
+            <div class="col-xl-9">
+                <button class="btn btn-add" (click)="onOpenModal(null, 'add')">+ Add Product</button>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <table class="table table-striped  table-hover project-list-table table-nowrap table-borderless"
+                            style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Unit Price</th>
+                                    <th>Category</th>
+                                    <th>Units in Stock</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let product of productResponse?.data?.products">
+                                <tr>
+                                    <td><img src="https://www.pngitem.com/pimgs/m/325-3256236_products-icon-vector-product-icon-png-transparent-png.png"
+                                            width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                                    <td>{{product.name}}</td>
+                                    <td>{{product.unitPrice}}</td>
+                                    <td>{{product.category?.categoryName}}</td>
+                                    <td><span class="badge"
+                                            [ngClass]="product.unitsInStock === 0 ? 'bg-danger' : 'bg-success'">{{product.unitsInStock}}</span>
+                                    </td>
+                                    <td><a class="px-2 text-warning" (click)="onOpenModal(product, 'edit')"><fa-icon
+                                                class="update" [icon]="faPenToSquare"></fa-icon></a>
+
+                                        <a class="px-2 text-danger" (click)="onOpenModal(product, 'delete')"><fa-icon
+                                                class="delete" [icon]="faTrash"></fa-icon></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <button class="btn btn-add " (click)="onOpenModal(null, 'addCat')">+ Add Category</button>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Product Categories</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm mt-2 mb-4">
+                            <tbody *ngFor="let cat of categoryResponse?.data?.pcategories">
+                                <tr>
+                                    <td><strong>{{cat.categoryName}}</strong></td>
+                                    <td><a class="px-2 text-danger" (click)="onOpenModal(cat, 'deleteCat')"><fa-icon
+                                                class="delete" [icon]="faTrash"></fa-icon></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- add form modal -->
+    <div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a new Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container">
+                        <form #addForm="ngForm">
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Product Name" class="form-control" ngModel
+                                            name="name" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <select class="form-select" ngModel name="categoryId" required>
+                                                <option value="" disabled selected hidden>Product Category...</option>
+                                                <option *ngFor="let cat of categoryResponse?.data?.pcategories"
+                                                    [value]="cat.id">
+                                                    {{cat.categoryName}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <input type="text" placeholder="Unit Price" class="form-control" ngModel
+                                            name="unitPrice" required>
+
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" placeholder="Units In Stock" class="form-control" ngModel
+                                            name="unitsInStock" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+
+                                        <input type="file" placeholder="Image" class="form-control" ngModel
+                                            name="imageUrl" required>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" placeholder="SKU" class="form-control" ngModel name="sku"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <textarea name="description" placeholder="Product Description" cols="30" ngModel
+                                        rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="col-4 btn btn-primary m-4"
+                                            (click)="addProduct(addForm)" [disabled]="addForm.invalid"
+                                            data-bs-dismiss="modal">ADD</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- update form modal -->
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" container">
+                        <form #updateForm="ngForm">
+                            <div class="card-body">
+                                <div class="row m-1 g-3">
+                                    <div class="">
+                                        <input type="hidden" class="form-control" name="id"
+                                            ngModel="{{editProduct?.id}}">
+                                    </div>
+                                    <div class="col">
+                                        <span>Product Name</span>
+                                        <input type="text" placeholder="Product Name" class="form-control"
+                                            ngModel="{{editProduct?.name}}" name="name" required>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <span>Product Category</span>
+                                            <select class="form-select" ngModel="{{editProduct?.category?.id}}"
+                                                name="categoryId" required>
+                                                <option value="" disabled selected hidden>
+                                                    {{editProduct?.category?.categoryName}}</option>
+                                                <option *ngFor="let cat of categoryResponse?.data?.pcategories"
+                                                    [value]="cat.id">
+                                                    {{cat.categoryName}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <span>Unit Price</span>
+                                        <input type="text" placeholder="Unit Price" class="form-control"
+                                            ngModel="{{editProduct?.unitPrice}}" name="unitPrice" required>
+                                    </div>
+                                    <div class="col">
+                                        <span>Units In Stock</span>
+                                        <input type="number" placeholder="Units In Stock" class="form-control"
+                                            ngModel="{{editProduct?.unitsInStock}}" name="unitsInStock" required>
+
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <div class="col">
+                                        <span>Product Image</span>
+                                        <input type="file" placeholder="Image" class="form-control" ngModel
+                                            name="imageUrl">
+                                    </div>
+                                    <div class="col">
+                                        <span>SKU</span>
+                                        <input type="text" placeholder="SKU" class="form-control"
+                                            ngModel="{{editProduct?.sku}}" name="sku" required>
+                                    </div>
+                                </div>
+                                <div class="row m-1 g-3">
+                                    <span>Product Description</span>
+                                    <textarea name="description" id="" placeholder="Product Description" cols="30"
+                                        rows="5" class="form-control">{{editProduct?.description}}</textarea>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row m-1 g-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="col-4 btn btn-primary m-4"
+                                            (click)="upateProduct(updateForm.value)"
+                                            data-bs-dismiss="modal">UPDATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete product Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to delete Product <strong>{{deleteProduct?.name}}</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(deleteProduct)"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add category Modal -->
+    <div class="modal fade" id="addCat" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="staticBackdropLabel">Add Category</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form" #catForm="ngForm">
+                        <label class="label">Category Name</label>
+                        <input type="text" class="form-controle" placeholder="Catgory Name" ngModel name="categoryName"
+                            required>
+                        <button class="btn btn-primary" (click)="addCategory(catForm)" data-bs-dismiss="modal">Add Category</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete category Modal -->
+    <div class="modal fade" id="deleteCat" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog bg-light" style="border-radius:10px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are about to delete Category <strong>{{deleteCategory?.categoryName}}</strong>
+                    <br>
+                    <strong> All related products will be deleted too !!</strong>
+                    <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteCat(deleteCategory)"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

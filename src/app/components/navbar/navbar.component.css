@@ -1,6 +1,6 @@
 .bottom-navbar {
   background: #313a46;
-  box-shadow: 0px 0px 50px #d3d3d3;
+  box-shadow: 0px 10px 15px #bababa;
   display: flex;
   align-items: center;
 }
@@ -18,7 +18,7 @@ img {
 }
 
 .page-navigation {
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .nav-link {
@@ -28,6 +28,9 @@ img {
   display: flex;
   align-items: flex-end;
   cursor: pointer;
+}
+.nav-item:hover{
+  color: red;
 }
 
 .menu-title {

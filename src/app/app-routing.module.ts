@@ -8,6 +8,8 @@ import { AgentInfosComponent } from './components/agent-infos/agent-infos.compon
 import { AuthGuard } from './auth-guard.guard';
 import { DemandsComponent } from './components/demands/demands.component';
 import { ChangePwdComponent } from './components/change-pwd/change-pwd.component';
+import { ProductsComponent } from './components/products/products.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -30,7 +32,13 @@ const routes: Routes = [
             path:'demands', component:DemandsComponent
           },
           {
+            path: 'products', component: ProductsComponent
+          },
+          {
             path:'change-pwd', component:ChangePwdComponent
+          },
+          {
+            path:'orders', component:OrdersComponent
           }
         ]
       }

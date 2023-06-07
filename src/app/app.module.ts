@@ -15,6 +15,8 @@ import { AgentInfosComponent } from './components/agent-infos/agent-infos.compon
 import { AuthInterceptorService } from './services/Auth-interceptor.service';
 import { DemandsComponent } from './components/demands/demands.component';
 import { ChangePwdComponent } from './components/change-pwd/change-pwd.component';
+import { ProductsComponent } from './components/products/products.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { ChangePwdComponent } from './components/change-pwd/change-pwd.component
     ClientsComponent,
     AgentInfosComponent,
     DemandsComponent,
-    ChangePwdComponent
+    ChangePwdComponent,
+    ProductsComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

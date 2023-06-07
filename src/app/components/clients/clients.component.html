@@ -136,6 +136,7 @@
                                 <div class="row m-1 g-3">
                                     <div class="col">
                                         <select class="form-select" ngModel name="accountType" required>
+                                            <option value="" disabled selected hidden>Please Choose...</option>
                                             <option value="Plafond_200DH">Hssab 1 - Plafond : 200 DH</option>
                                             <option value="Plafond_5000DH">Hssab 2 - Plafond : 5000 DH</option>
                                             <option value="Plafond_20000DH">Hssab 3 - Plafond : 20000 DH</option>
@@ -322,7 +323,7 @@
         </div>
     </div>
     <!-- Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog bg-light" style="border-radius:10px">
             <div class="modal-content">
                 <div class="modal-header">
