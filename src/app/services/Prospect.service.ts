@@ -40,16 +40,7 @@ export class ProspectService {
       return of('error')
     })
   );
-
-//   prospect$ =  (prospectId: number) => <Observable<CustomResponse>>
-//   this.http.get<CustomResponse>(`${this.apiUrl}/get/${prospectId}`)
-//   .pipe(
-//     tap(console.log),
-//     catchError(() => {
-//       return of('error')
-//     })
-//   );
-
+  
   deleteProspect$ = (prospectId: number) => <Observable<CustomResponse>>
   this.http.delete<CustomResponse>(`${this.apiUrl}/deleteProspect/${prospectId}`)
   .pipe(

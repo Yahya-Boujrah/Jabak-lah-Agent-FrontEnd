@@ -14,7 +14,7 @@ const httpOptions = {
     providedIn: 'root'
   })
 export class ClientService {
-  private readonly apiUrl = 'https://jabak-lah-app.herokuapp.com/';  
+  private readonly apiUrl = 'https://jabak-lah-app.herokuapp.com';  
 
   constructor(private http: HttpClient) {}
 
