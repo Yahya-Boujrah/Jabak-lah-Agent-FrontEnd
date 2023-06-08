@@ -139,6 +139,13 @@ export class ProductsComponent {
     })
   }
 
+  doSearch(value: string) {
+    console.log(`value=${value}`);
+    this.productService.filterProducts$(value, this.dataSubject.value).subscribe(response =>{
+      this.productResponse = response;
+    })
+  }
+
 
   onOpenModal(product: any, mode: string) {
 

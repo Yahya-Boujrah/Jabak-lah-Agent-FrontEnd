@@ -50,28 +50,35 @@ export class ClientService {
   .pipe(
     tap(console.log)
   );
-//   filterClients$ = (type: string , response : CustomResponse) => <Observable<CustomResponse>>
-//     new Observable<CustomResponse>(
-//       subscriber => {
-//         console.log(response);
-//         subscriber.next(
-//           type === 'All' ? {...response, message: `demandes filtered by ${type} type`} :
-//             {
-//               ...response,
-//               message: (response.data.demandes as Demande[]).filter(demande => demande.type === type).length > 0 ?
-//               `demandes filtered by ${type} type` : `No demandes of ${type} found`,
-//               data:{ demandes : (response.data.demandes as Demande[]).filter(demande => demande.type === type)}
-//             }
-//         );
-//         subscriber.complete();
-//       }
-//     )
-//   .pipe(
-//     tap(console.log),
-//     catchError(() => {
-//       return of('error')
-//     })
-//   );
+
+  filterClients$ = (name: string, response: CustomResponse) => <Observable<CustomResponse>>
+    new Observable<CustomResponse>(
+      subscriber => {
+        console.log(response);
+        const filteredClients = (response.data.clients as Client[]).filter(client =>
+          client?.lastName!.toLowerCase().includes(name.toLowerCase()) ||
+          client?.firstName!.toLowerCase().includes(name.toLowerCase()) ||
+          client?.phone!.includes(name)
+        );
+        const filteredResponse: CustomResponse = {
+          ...response,
+          message: filteredClients.length > 0
+            ? `clients filtered by name "${name}"`
+            : `No clients found with name "${name}"`,
+          data: { clients: filteredClients },
+        };
+
+        subscriber.next(filteredResponse);
+        subscriber.complete();
+
+      }
+    )
+      .pipe(
+        tap(console.log),
+        catchError(() => {
+          return of('error')
+        })
+      );
 
 
   client$ =  (clientId: number) => <Observable<CustomResponse>>

@@ -25,6 +25,10 @@ export class ClientsComponent {
   accountType: string = 'Hssab 1 - Plafond : 200 DH';
   amount!: number;
   
+  num_5000 : number = 0;
+  num_20000 : number = 0;
+  num_50000 : number = 0;
+
   clientResponse!: CustomResponse;
   public dataSubject = new BehaviorSubject<any>(null);
 
@@ -35,6 +39,12 @@ export class ClientsComponent {
       this.dataSubject.next(response);
 
       this.clientResponse = response;
+
+      this.clientResponse.data.clients?.forEach( (client : Client) => {
+        if(client.accountType === 'Plafond_5000DH') this.num_5000+=1;
+        if(client.accountType === 'Plafond_20000DH') this.num_20000+=1;
+        if(client.accountType === 'Plafond_50000DH') this.num_50000+=1;
+      });
       this.clientResponse = { ...response, data: { clients: response.data.clients?.reverse() } };
     })
   }
@@ -116,6 +126,13 @@ export class ClientsComponent {
         }
       )
       this.clientResponse = this.dataSubject.value;
+    })
+  }
+
+  doSearch(value: string) {
+    console.log(`value=${value}`);
+    this.clientService.filterClients$(value, this.dataSubject.value).subscribe(response =>{
+      this.clientResponse = response;
     })
   }
 

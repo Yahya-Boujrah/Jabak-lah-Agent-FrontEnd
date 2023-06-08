@@ -2,6 +2,10 @@ body {
   margin-top: 20px;
   background-color: #f7f7fc;
 }
+
+h1{
+  font-weight: bold;
+}
 .btn-add {
   outline: none;
   background: 	#3d4b5f;
@@ -95,3 +99,30 @@ body {
 .me-4 {
   margin-right: 1.5rem !important;
 }
+
+
+.header{
+  display: flex;
+  align-items: start;
+  justify-content:space-between;
+}
+
+.search{
+  margin: 15px 0px;
+}
+.input {
+  outline: none;
+  display: block;
+  background: rgba(0, 0, 0, 0.1);
+  width: 80%;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+.input:focus {
+  color: rgba(0, 0, 0, 0.8);
+} 
