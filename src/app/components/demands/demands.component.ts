@@ -5,6 +5,8 @@ import { ProspectService } from 'src/app/services/Prospect.service';
 import { faEye, faTrash, faSquareCheck} from '@fortawesome/free-solid-svg-icons';
 import { Prospect } from 'src/app/interfaces/Prospect.interface';
 import { NgForm } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
+
 
 @Component({
   selector: 'app-demands',
@@ -27,7 +29,7 @@ export class DemandsComponent implements OnInit {
 
   
 
-  constructor(private prospectService : ProspectService){}
+  constructor(private prospectService : ProspectService, private toast: NgToastService){}
 
   ngOnInit(): void {
     this.prospectService.prospects$.subscribe(response => {
@@ -46,6 +48,8 @@ export class DemandsComponent implements OnInit {
         }
       )
       this.prospectResponse = this.dataSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Client added', position: 'tr', duration: 2500 });
+
     });
   }
   delete(prospect: Prospect): void {
@@ -56,6 +60,8 @@ export class DemandsComponent implements OnInit {
         }
       )
       this.prospectResponse = this.dataSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'prospect deleted', position: 'tr', duration: 2500 });
+
   });
 }
 

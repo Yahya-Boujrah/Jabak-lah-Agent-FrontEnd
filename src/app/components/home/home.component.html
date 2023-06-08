@@ -1,6 +1,5 @@
 <div class="container main">
     <h1 align="center">Our Team</h1>
-      <!-- <p align="center">Something about our team</p> -->
     <div class="container agents">
         <div class="col-md-6 col-xl-3" *ngFor="let agent of agentResponse?.data?.agents">
             <div class="card m-b-30">
@@ -15,7 +14,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item item">
-                        Email : <br><a href="#">{{agent.email}}</a>
+                        Email : <br>{{agent.email}}
                         <fa-icon  class="user-icon" [icon]="faEnvelope"></fa-icon>
                     </li>
                     <li class="list-group-item item" >

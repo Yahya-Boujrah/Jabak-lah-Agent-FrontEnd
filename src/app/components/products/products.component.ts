@@ -8,6 +8,8 @@ import { NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from 'src/app/interfaces/Product.interface';
 import { ProductCategory } from 'src/app/interfaces/Product-category.interface';
+import { NgToastService } from 'ng-angular-popup';
+
 
 @Component({
   selector: 'app-products',
@@ -31,9 +33,8 @@ export class ProductsComponent {
 
   currentCategoryId: number = 1;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute) {
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toast: NgToastService) {
   }
-
 
   ngOnInit() {
     this.productService.getProducts().subscribe(
@@ -61,6 +62,8 @@ export class ProductsComponent {
         { ...response, data: { products: [response.data.product, ...this.dataSubject.value.data.products] } }
       )
       this.productResponse = this.dataSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Product added', position: 'tr', duration: 2500 });
+
     });
 
   }
@@ -71,6 +74,8 @@ export class ProductsComponent {
         { ...response, data: { pcategories: [response.data.category, ...this.catSubject.value.data.pcategories] } }
       )
       this.categoryResponse = this.catSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Category added', position: 'tr', duration: 2500 });
+
     });
 
   }
@@ -83,6 +88,8 @@ export class ProductsComponent {
         }
       )
       this.categoryResponse = this.catSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Category deleted', position: 'tr', duration: 2500 });
+
     })
   }
 
@@ -107,24 +114,16 @@ export class ProductsComponent {
           });
   
           this.productResponse = this.dataSubject.value;
+          this.toast.success({ detail: 'Success', summary: 'Product updated', position: 'tr', duration: 2500 });
+
         } else {
           console.error('Invalid response or missing product data.');
         }
       },
       error => {
-        console.error('Failed to update product:', error);
+        this.toast.error({ detail: 'Error', summary: 'Something gone wrong', position: 'tr', duration: 2500 });
       }
     );
-  }
-
-  handleSearchProducts() {
-    const keyword: string = this.route.snapshot.paramMap.get('keyword')!;
-    this.productService.searchProducts(keyword).subscribe(
-      response => {
-        this.productResponse = response;
-      }
-    )
-
   }
 
   delete(product: Product): void {
@@ -136,6 +135,8 @@ export class ProductsComponent {
         }
       )
       this.productResponse = this.dataSubject.value;
+      this.toast.success({ detail: 'Success', summary: 'Product deleted', position: 'tr', duration: 2500 });
+
     })
   }
 

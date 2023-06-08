@@ -62,14 +62,6 @@ export class ProductService {
     );
   }
 
-  searchProducts(keyword: string) {
-    const searchUrl = `${this.baseUrl}/search/${keyword}`;
-
-    return this.httpClient.get<CustomResponse>(searchUrl).pipe(
-      tap(console.log)
-    );
-  }
-
   deleteProduct(id: number): Observable<CustomResponse> {
     return this.httpClient.delete<CustomResponse>(`${this.baseUrl}/deleteProduct/${id}`).pipe(
       tap(console.log)
@@ -80,7 +72,6 @@ export class ProductService {
       tap(console.log)
     );
   }
-
 
   filterProducts$ = (item: string, response: CustomResponse) => <Observable<CustomResponse>>
     new Observable<CustomResponse>(
