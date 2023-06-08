@@ -23,18 +23,18 @@ export class ChangePwdComponent {
       this.agentService.changePassword$(form.value).subscribe(response => {
         this.pwdResponse = response;
         this.toast.success({ detail: 'Success', summary: 'Password changed successfully', position: 'tr', duration: 2500 });
+          sessionStorage.removeItem('token');
+          this.router.navigate(['']);
 
       },error => {
         this.toast.error({ detail: 'Error', summary: 'Something gone wrong', position: 'tr', duration: 2500 });
+        form.reset();
       })
     }else{
       this.toast.warning({ detail: 'Warning', summary: 'Password does not match', position: 'tr', duration: 2500 });
+      form.reset();
 
     }
-    form.reset();
-
-    sessionStorage.removeItem('token');
-    this.router.navigate(['']);
-
+   
   }
 }

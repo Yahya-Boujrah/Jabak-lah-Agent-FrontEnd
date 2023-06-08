@@ -75,6 +75,7 @@ export class ProductsComponent {
       )
       this.categoryResponse = this.catSubject.value;
       this.toast.success({ detail: 'Success', summary: 'Category added', position: 'tr', duration: 2500 });
+      form.reset()
 
     });
 
