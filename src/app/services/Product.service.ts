@@ -12,7 +12,7 @@ import { ProductCategory } from '../interfaces/Product-category.interface';
 export class ProductService {
 
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl = 'https://jabak-lah-app.herokuapp.com/api/products';
 
   constructor(private httpClient: HttpClient) { }
 

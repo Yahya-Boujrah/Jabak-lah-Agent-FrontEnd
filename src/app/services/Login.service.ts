@@ -10,7 +10,7 @@ import { Agent } from '../interfaces/Agent.interface';
 export class LoginService {
 
 
-  private readonly URL : string = 'http://localhost:8080/api/auth';
+  private readonly URL : string = 'https://jabak-lah-app.herokuapp.com/api/auth';
 
   constructor(private http : HttpClient) { }
 

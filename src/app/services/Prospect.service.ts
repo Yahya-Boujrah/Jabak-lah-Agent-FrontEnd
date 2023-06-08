@@ -16,7 +16,7 @@ const httpOptions = {
   })
 export class ProspectService {
     
-  private readonly apiUrl = 'http://localhost:8080/api/agent';  
+  private readonly apiUrl = 'https://jabak-lah-app.herokuapp.com/api/agent';  
 
   private number$ = new BehaviorSubject<any>(null);
   currentNumber$ = this.number$.asObservable();

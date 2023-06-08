@@ -9,7 +9,7 @@ import { Order } from '../interfaces/Order.interface';
 })
 export class OrderService{
 
-  private baseUrl = 'http://localhost:8080/api/orders';
+  private baseUrl = 'https://jabak-lah-app.herokuapp.com/api/orders';
 
   constructor(private httpClient : HttpClient) { }
 
