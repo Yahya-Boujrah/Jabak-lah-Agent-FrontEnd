@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <select class="form-control category-select" id="exampleFormControlSelect1">
+                                <select #selected class="form-control category-select" ngModel name="status" id="exampleFormControlSelect1" (change)="changeStatus(order.id,selected.value)">
                                     <option value="" disabled selected hidden>{{ order.status === 'ORDER_ON_PROCESS' ? 'On process' : order.status === 'PACKAGE_ON_DELIVERY' ? 'On delivery' : 'Delivered'}}</option>
                                     <option  value="ORDER_ON_PROCESS">On process</option>
                                     <option value="PACKAGE_ON_DELIVERY">On delivery</option>
@@ -69,11 +69,13 @@
                                 </select>
                             </div>
                             <div class="col-lg-2">
-                                <select class="form-control category-select" id="exampleFormControlSelect1">
+                                <select #selected class="form-control category-select" ngModel name="deliveryGuy" 
+                                     id="exampleFormControlSelect1" (change)="affectDg(order.id)">
                                     <option value="" disabled selected hidden>Delivery guy...</option>
-                                    <option  value="ORDER_ON_PROCESS">On process</option>
-                                    <option value="PACKAGE_ON_DELIVERY">On delivery</option>
-                                    <option value="PACKAGE_DELIVERED">Delivered</option>
+                                    <option *ngFor="let dg of dgResponse?.data?.deliveryMen"
+                                    [value]="dg.id">
+                                        {{dg.firstName}} {{dg.lastName}}
+                                    </option>
                                 </select>
                             </div>
                         </div>

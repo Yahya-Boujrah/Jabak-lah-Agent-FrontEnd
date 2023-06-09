@@ -1,5 +1,6 @@
 import { Agent } from "./Agent.interface";
 import { Client } from "./Client.interface";
+import { DG } from "./Delivery-guy.interface";
 import { Order } from "./Order.interface";
 import { ProductCategory } from "./Product-category.interface";
 import { Product } from "./Product.interface";
@@ -13,5 +14,6 @@ export interface CustomResponse {
         prospects?: Prospect[], prospect?:Prospect,
         products?: Product[], product?: Product,
         pcategories?: ProductCategory[],  category?: ProductCategory,
-        orders?: Order[], order?: Order};  
+        orders?: Order[], order?: Order,
+        deliveryMen?: DG[]};  
 }
