@@ -41,12 +41,15 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  changeStatus(orderId : number, status : string){
+  changeStatus(orderId : any, status : string){
     this.dgService.updateStatus(orderId , status).subscribe();
   }
 
-  affectDg(orderId: number){
-    this.dgService.updateOrder(this.deliveryGuy.id as number, orderId).subscribe();
+  affectDg(orderId: any){
+    console.log(' dg id ' + this.deliveryGuy);
+    console.log('oerder id '+ orderId );
+    const ids : number[] = [this.deliveryGuy, orderId];
+    this.dgService.updateOrder(ids).subscribe();
   }
 
 }

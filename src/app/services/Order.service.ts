@@ -25,8 +25,8 @@ export class OrderService{
     subscriber => {
       console.log(response);
       const filteredOrders = (response.data.orders as Order[]).filter(order =>
-        order?.status!.toLowerCase().includes(item.toLowerCase()) ||
-        order?.orderTrackingNumber!.includes(item.toLowerCase())
+        order?.status!.includes(item) ||
+        order?.orderTrackingNumber!.includes(item)
       );
       const filteredResponse: CustomResponse = item === 'All'
         ? { ...response, message: `demandes filtered by ${item} type` }
@@ -42,9 +42,5 @@ export class OrderService{
       subscriber.complete();
     }
   )
-    .pipe(
-      tap(console.log),
-    );
-
 
 }

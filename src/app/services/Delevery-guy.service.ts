@@ -14,7 +14,7 @@ export class DeliveryService{
   constructor(private httpClient : HttpClient) { }
 
   getDeliveryMen(){
-    return this.httpClient.get(`${this.baseUrl}/delivery`).pipe(
+    return this.httpClient.get(`${this.baseUrl}/deliveryMen`).pipe(
       tap(console.log)
     );
   }
@@ -27,8 +27,8 @@ export class DeliveryService{
   }
   
     
-  updateOrder(orderId : number , dgId: number){
-    return this.httpClient.put(`${this.baseUrl}/updateOrder/${orderId}`, dgId).pipe(
+  updateOrder(ids : number[]){
+    return this.httpClient.put(`${this.baseUrl}/updateOrder/${ids}`, null).pipe(
       tap(console.log)
     );
   }

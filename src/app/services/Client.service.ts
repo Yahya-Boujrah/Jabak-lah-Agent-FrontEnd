@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import{HttpClient, HttpHeaders} from "@angular/common/http"
-import { Observable, catchError, of, tap } from "rxjs";
+import { Observable, catchError, of, tap, throwError } from "rxjs";
 import { CustomResponse } from "../interfaces/Custom-response";
 import { Client } from "../interfaces/Client.interface";
 
@@ -51,35 +51,46 @@ export class ClientService {
     tap(console.log)
   );
 
-  filterClients$ = (name: string, response: CustomResponse) => <Observable<CustomResponse>>
-    new Observable<CustomResponse>(
-      subscriber => {
-        console.log(response);
-        const filteredClients = (response.data.clients as Client[]).filter(client =>
-          client?.lastName!.toLowerCase().includes(name.toLowerCase()) ||
-          client?.firstName!.toLowerCase().includes(name.toLowerCase()) ||
-          client?.phone!.includes(name)
-        );
-        const filteredResponse: CustomResponse = {
-          ...response,
-          message: filteredClients.length > 0
-            ? `clients filtered by name "${name}"`
-            : `No clients found with name "${name}"`,
-          data: { clients: filteredClients },
-        };
+  filterClients$ = (name: string, response: CustomResponse): Observable<CustomResponse> =>
+  new Observable<CustomResponse>(subscriber => {
+    console.log(response);
 
-        subscriber.next(filteredResponse);
-        subscriber.complete();
+    if (!response || !response.data || !response.data.clients) {
+      const errorMessage = 'Invalid response format';
+      subscriber.error(errorMessage);
+      return;
+    }
 
-      }
-    )
-      .pipe(
-        tap(console.log),
-        catchError(() => {
-          return of('error')
-        })
+    const filteredClients = (response.data.clients as Client[]).filter(client => {
+      const lowerCaseName = name.toLowerCase();
+      const lowerCaseLastName = client?.lastName?.toLowerCase() || '';
+      const lowerCaseFirstName = client?.firstName?.toLowerCase() || '';
+
+      return (
+        lowerCaseLastName.includes(lowerCaseName) ||
+        lowerCaseFirstName.includes(lowerCaseName) ||
+        client?.phone?.includes(name)
       );
+    });
 
+    const filteredResponse: CustomResponse = {
+      ...response,
+      message:
+        filteredClients.length > 0
+          ? `Clients filtered by name "${name}"`
+          : `No clients found with name "${name}"`,
+      data: { clients: filteredClients },
+    };
+
+    subscriber.next(filteredResponse);
+    subscriber.complete();
+  }).pipe(
+    tap(console.log),
+    catchError(error => {
+      console.error(error);
+      return throwError('An error occurred during client filtering');
+    })
+  );
 
   client$ =  (clientId: number) => <Observable<CustomResponse>>
   this.http.get<CustomResponse>(`${this.apiUrl}/api/agent/get/${clientId}`)
